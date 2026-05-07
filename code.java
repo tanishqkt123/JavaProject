@@ -30,9 +30,14 @@ class Vehicle {
         System.out.println("Model: " + model);
         System.out.println("Status: " + status);
     }
+
+    void updateStatus(String newStatus) {
+        status = newStatus;
+    }
 }
 
 class ServiceManager {
+
     void checkVehicle(Vehicle v) {
         v.showDetails();
     }
@@ -43,18 +48,21 @@ class ServiceManager {
 }
 
 class ServiceRecord {
+
     void createRecord() {
         System.out.println("Service record created.");
     }
 }
 
 class BillingManager {
-    void generateBill() {
-        System.out.println("Bill Generated: Rs. 2500");
+
+    void generateBill(int amount) {
+        System.out.println("Bill Generated: Rs. " + amount);
     }
 }
 
 public class MainApp {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -74,6 +82,12 @@ public class MainApp {
         System.out.print("Enter Vehicle Model: ");
         String model = sc.nextLine();
 
+        System.out.print("Enter Service Type: ");
+        String serviceType = sc.nextLine();
+
+        System.out.print("Enter Service Charge: ");
+        int amount = sc.nextInt();
+
         Vehicle v = new Vehicle(no, model);
 
         ServiceManager sm = new ServiceManager();
@@ -83,10 +97,20 @@ public class MainApp {
         System.out.println();
 
         c.requestService();
+
         sm.checkVehicle(v);
+
+        System.out.println("Service Type: " + serviceType);
+
         sm.confirmBooking();
+
+        v.updateStatus("Serviced");
+
+        System.out.println("Updated Vehicle Status: " + v.status);
+
         sr.createRecord();
-        bm.generateBill();
+
+        bm.generateBill(amount);
 
         System.out.println("Vehicle service completed successfully.");
 
